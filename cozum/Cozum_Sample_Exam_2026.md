@@ -1,11 +1,40 @@
 # BLG 411E – Software Engineering · Sample Exam 2026 · Tam Çözüm
 
-> Açıklamalar Türkçe, sınava yazılacak cevaplar (cevap anahtarı kısımları) İngilizcedir.
+> Her bölümün başında sorunun orijinal metni (📄 SORU kutusu) yer alır. Açıklamalar Türkçe, sınava yazılacak cevaplar (cevap anahtarı kısımları) İngilizcedir.
 > Gantt görseli: [`gantt.svg`](gantt.svg) / [`gantt.png`](gantt.png)
 
 ---
 
 ## Soru 1 – Proje Planlama (Effort, PERT, Gantt)
+
+<div class="q">
+
+**📄 SORU (orijinal metin):**
+
+**1.** Imagine you have a team of four (cross-functional) developers working on a project which starts on January 2026 and expected to finish at the end of December 2026. After a round of initial planning following tasks (T) and milestones (M) have been identified:
+
+| Task ID | Estimated Effort (man.week) | Prerequisite | Deadline (end of month) |
+|---|---|---|---|
+| T1 | 8 | - | - |
+| T2 | 20 | - | - |
+| T3 | 12 | T1, T2 | - |
+| M1 | - | T3 | February 2026 |
+| T4 | 18 | M1 | - |
+| T5 | 14 | M1 | - |
+| T6 | 28 | M1 | - |
+| T7 | 16 | T6 | - |
+| T8 | 20 | T5 | - |
+| M2 | - | T4, T7, T8 | August 2026 |
+| T9 | 12 | M2 | - |
+| T10 | 16 | M2 | - |
+| T11 | 10 | T9, T10 | - |
+| T12 | 18 | T11 | - |
+| M3 | - | T12 | December 2026 |
+
+Please assume each month is exactly 4 weeks long; **a developer can work for at most one task each week**; and the effort spent by each member do not fluctuate throughout the project.
+
+</div>
+
 
 ### 0. Temel veriler ve varsayımlar
 
@@ -32,6 +61,15 @@ Görevleri milestone'lara göre **3 faza** ayırıyoruz (milestone'lar bir "bari
 
 ### a) Milestone deadline'ları tutuyor mu?
 
+<div class="q">
+
+**📄 SORU (orijinal metin):**
+
+a) Calculate if the project is possible to be completed within the given deadline constraints for milestones.
+
+</div>
+
+
 **M1 (Şubat sonu, hafta 8):**
 - Gereken effort: 8 + 20 + 12 = **40 man.week**
 - Mevcut kapasite: 4 dev × 8 hafta = **32 man.week**
@@ -51,6 +89,15 @@ Görevleri milestone'lara göre **3 faza** ayırıyoruz (milestone'lar bir "bari
 ---
 
 ### b) Tüm proje 1 yılda bitebilir mi?
+
+<div class="q">
+
+**📄 SORU (orijinal metin):**
+
+b) Calculate if the project is possible to be completed within the given deadline constraints for the whole project (one year).
+
+</div>
+
 
 - Toplam effort = **192 man.week**
 - Toplam kapasite = 4 dev × 48 hafta = **192 man.week**
@@ -72,6 +119,15 @@ Faz bazında minimum süreler (kontrol):
 ---
 
 ### c) PERT Chart ve Critical Path
+
+<div class="q">
+
+**📄 SORU (orijinal metin):**
+
+c) Draw the PERT chart for this project and identify the critical path.
+
+</div>
+
 
 PERT'te süre olarak her task'ın effort'u (man.week) kullanılır (1 kişi çalışıyormuş gibi). Forward pass (ES/EF) ve backward pass (LS/LF):
 
@@ -157,17 +213,33 @@ flowchart LR
 Kâğıtta çizerken (ASCII karşılığı):
 
 ```
+ Faz 1 – Faz 2:
             ┌──T1(8)──┐
- Start ─────┤          ├──► T3(12) ──► ◆M1 ──┬──► T4(18) ───────────────┐
-            └══T2(20)═┘                      ├──► T5(14) ──► T8(20) ────┤
-                                             └══► T6(28) ══► T7(16) ════┴══► ◆M2 ──┬──► T9(12) ──┐
-                                                                                   └══► T10(16) ═┴══► T11(10) ══► T12(18) ══► ◆M3
- ═══ : critical path  (T2 → T3 → M1 → T6 → T7 → M2 → T10 → T11 → T12 → M3)
+ Start ─────┤         ├──► T3(12) ──► ◆M1 ──┬──► T4(18) ─────────────────┐
+            └══T2(20)═┘                     ├──► T5(14) ──► T8(20) ──────┤
+                                            └══► T6(28) ══► T7(16) ══════┴══► ◆M2
+
+ Faz 3:
+          ┌──► T9(12) ──┐
+ ◆M2 ─────┤             ├══► T11(10) ══► T12(18) ══► ◆M3
+          └══► T10(16) ═┘
+
+ ═══ : critical path
+ (T2 → T3 → M1 → T6 → T7 → M2 → T10 → T11 → T12 → M3)
 ```
 
 ---
 
 ### d) Gantt Chart (M1 ve M2 en erken tarihe kaydırılmış)
+
+<div class="q">
+
+**📄 SORU (orijinal metin):**
+
+d) By shifting the milestones M2 and M3 to the earliest deadlines possibles, provide a gantt chart that can be used to complete this project on time. Please do not draw dependencies towards/from milestones; draw the other dependencies. Please also fill in the total man.week spend in each cell, indicate milestones as specific dates. Keep the idle cells empty.
+
+</div>
+
 
 > Not: Soru metninde "M2 and M3" yazıyor, ancak şablonda M3 zaten **31.Dec** olarak sabit verilmiş ve deadline'ı tutmayan milestone'lar **M1 ve M2**. Dolayısıyla kaydırılanlar M1 ve M2'dir; M3 31 Aralık'ta kalır.
 
@@ -237,6 +309,15 @@ Task'ların hafta aralıkları:
 
 ### e) Geliştirici – Hafta tablosu
 
+<div class="q">
+
+**📄 SORU (orijinal metin):**
+
+e) Provide an additional table based on your Gantt chart, showing for which task each developer is working for each week. (Şablon: her ay için W1–W4 + TOT sütunları; satırlar Dev1–Dev4 ve TOT.)
+
+</div>
+
+
 Her hücre: o geliştiricinin o hafta çalıştığı task. TOT satırı: o hafta harcanan toplam man.week; ay TOT sütunu: dev başına o ay harcanan man.week.
 
 | | Jan W1 | Jan W2 | Jan W3 | Jan W4 | **Jan TOT** | Feb W1 | Feb W2 | Feb W3 | Feb W4 | **Feb TOT** | Mar W1 | Mar W2 | Mar W3 | Mar W4 | **Mar TOT** | Apr W1 | Apr W2 | Apr W3 | Apr W4 | **Apr TOT** |
@@ -283,6 +364,24 @@ Kontrol: T1=8, T2=20, T3=12, T4=18, T5=14, T6=28, T7=16, T8=20, T9=12, T10=16, T
 
 ## Soru 2 – Boşluk doldurma / Seçmeli (4 pts)
 
+<div class="q">
+
+**📄 SORU (orijinal metin):**
+
+**2. (4 pts)** Fill the blanks or choose the best answer from the options in the following questions.
+
+A Software Architecture document does not include ______________.
+- Class Diagrams
+- Sequence Diagrams
+- Activity Diagrams
+- Data Flow Diagrams
+- Use Case Diagrams
+
+Availability, security and usability are ____________________ requirements.
+
+</div>
+
+
 **1) A Software Architecture document does not include ______.**
 
 > **Answer: Use Case Diagrams**
@@ -298,6 +397,17 @@ Açıklama: Sistemin ne yaptığını değil, **ne kadar iyi** yaptığını (ka
 ---
 
 ## Soru 3 – Class mı Instance mı? (8 pts)
+
+<div class="q">
+
+**📄 SORU (orijinal metin):**
+
+**3. (8 pts)** Check the items below, and specify if you think they should be a CLASS or an INSTANCE. For any item that should be an instance, name a suitable class for it.
+
+a) General Motors · b) Boeing 777 · c) Board Game · d) Automobile Company · e) Visual arts student · f) Football player · g) Michael Jackson · h) Debit account
+
+</div>
+
 
 Kural: Birden çok somut örneği olabilen genel kavram → **Class**; tek, belirli, özel isimli bir varlık → **Instance** (ve ait olduğu class'ı yazılır).
 
@@ -316,6 +426,21 @@ Kural: Birden çok somut örneği olabilen genel kavram → **Class**; tek, beli
 
 ## Soru 4 – True / False (16 pts)
 
+<div class="q">
+
+**📄 SORU (orijinal metin):**
+
+**4. (16 pts)** True or False? *Circle the one you select.*
+
+1. T / F — *Content coupling* occurs when one software class secretly modifies data that is internal to another software class, and it is the worst type of coupling.
+2. T / F — PERT chart shows the relationship between tasks or activities, whereas GANTT chart shows the timeline for each task and their dependencies.
+3. T / F — Software requirements specification document must contain development methodology, implementation language and other technological constraints.
+4. T / F — A *scenario* is a concrete, focused, informal description of a single feature of the system by different actors.
+5. T / F — In a *composition* relation that appears in a class diagram, when the parent class is removed, the child is also destroyed.
+
+</div>
+
+
 | # | İfade (özet) | Cevap | Gerekçe |
 |---|---|---|---|
 | 1 | Content coupling: bir sınıfın diğerinin iç verisini gizlice değiştirmesi, en kötü coupling türü | **T** | Tanım birebir doğru; coupling türleri içinde en kötüsü content coupling'dir (encapsulation tamamen delinir). |
@@ -328,7 +453,25 @@ Kural: Birden çok somut örneği olabilen genel kavram → **Class**; tek, beli
 
 ## Soru 5 – Mimari Önerisi (12 pts)
 
+<div class="q">
+
+**📄 SORU (orijinal metin):**
+
+**5. (12 pts)** Read the system descriptions below and propose a high-level architecture for each of these. Explain why you choose that architecture.
+
+</div>
+
+
 ### a) Radyo-teleskop sinyal analizi (SETI@home benzeri)
+
+<div class="q">
+
+**📄 SORU (orijinal metin):**
+
+a) A system for analyzing signals from a radio-telescope to see if there are signs of extra-terrestrial intelligence. This system takes tapes containing radio signal data, and divides them up into small 'work units' that are distributed to hundreds of thousands of computers running screen savers. These screen savers filter and transform the data in various ways, and then analyze it to detect different kinds of signals. Results are returned to the central site for further analysis.
+
+</div>
+
 
 > **Architecture: Master–Slave (Master–Worker) / Client–Server distributed architecture, with a Pipe-and-Filter architecture inside each client.**
 
@@ -353,6 +496,15 @@ Kural: Birden çok somut örneği olabilen genel kavram → **Class**; tek, beli
 
 ### b) Kurumsal bordro (payroll) sistemi
 
+<div class="q">
+
+**📄 SORU (orijinal metin):**
+
+b) A corporate payroll system. All the information about employees, including their monthly salary and bank account, is kept in a database. Every two weeks, the system pays employees by depositing their salary in their bank account.
+
+</div>
+
+
 > **Architecture: Repository (data-centred) architecture + Batch-sequential (pipe-and-filter) processing; user access through a layered / 3-tier (client–server) structure.**
 
 ```
@@ -374,7 +526,31 @@ Kural: Birden çok somut örneği olabilen genel kavram → **Class**; tek, beli
 
 ## Soru 6 – Gereksinimler (14 pts)
 
+<div class="q">
+
+**📄 SORU (orijinal metin):**
+
+**6. (14 pts)**
+
+</div>
+
+
 ### a) Belirsiz gereksinimlerin sınıflandırılması ve doğrulanabilir hale getirilmesi
+
+<div class="q">
+
+**📄 SORU (orijinal metin):**
+
+a) The following requirements are stated in an unverifiable way. For each, indicate the kind of requirement it is (Functional, Non-functional, Platform or Process related), and rewrite it so that it is unambiguous and verifiable (you can make up some suitable details).
+
+(i) A modern programming language must be used.
+(ii) A development process will be used that will ensure the system is of high quality.
+(iii) The http server will have high availability and throughput.
+(iv) The system must be produced at minimum cost.
+(v) The ATM should be fast.
+
+</div>
+
 
 | # | Orijinal | Tür | Doğrulanabilir (verifiable) yeniden yazım |
 |---|---|---|---|
@@ -391,6 +567,15 @@ Hatırlatma (tür tanımları):
 - **Process:** Geliştirme süreci, metodoloji, maliyet, takvim, dokümantasyon kısıtları.
 
 ### b) Use Case: "Schedule Doctor Appointment"
+
+<div class="q">
+
+**📄 SORU (orijinal metin):**
+
+b) Write a use case description (*pre-conditions, actor, user and system actions, post-conditions*) for the following functional requirement: "A patient scheduling a doctor appointment through a healthcare app".
+
+</div>
+
 
 | Alan | İçerik |
 |---|---|
